@@ -5,13 +5,14 @@ import { connectDb, User } from "./db/db.js";
 import cookieParser from "cookie-parser";
 import bcrypt from "bcrypt";
 import { isAuthorized } from "./middlewares.js";
-
+import cors from "cors";
 dotenv.config();
 const PORT = process.env.PORT;
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
 connectDb();
 app.get('/',(req, res)=>{
     res.send("Welcome to my login server")
