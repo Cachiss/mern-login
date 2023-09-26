@@ -1,5 +1,6 @@
 import mongoose, { mongo } from "mongoose";
 import * as dotenv from "dotenv";
+import bcrypt from "bcrypt";
 dotenv.config();
 
 const MONGO_URL = process.env.MONGO_URL;
@@ -16,13 +17,19 @@ export const connectDb = async()=>{
 
 const userSchema = new mongoose.Schema({
     name:{
-        type: String
+        type: String,
+        required: true
     },
     email:{
-        type: String
+        type: String,
+        required: true,
+        unique: true
+
     },
     password: {
-        String
+        type: String,
+        required: true
+        
     }
 })
 
