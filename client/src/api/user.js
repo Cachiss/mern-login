@@ -15,6 +15,7 @@ export function loginUser(user) {
     console.log(server_url)
     return fetch(`${server_url}/login`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },

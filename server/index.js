@@ -11,8 +11,13 @@ const PORT = process.env.PORT;
 const app = express();
 
 app.use(express.json());
-app.use(cookieParser());
-app.use(cors());
+//cookie parser needs a secret to send signed cookies
+app.use(cookieParser("this is my secret"));
+app.use(cors({
+    origin: process.env.CLIENT_URL,
+    //credentials option is used to allow cookies to be sent from the client
+    credentials: true
+}));
 connectDb();
 app.get('/',(req, res)=>{
     res.send("Welcome to my login server")
@@ -45,7 +50,12 @@ app.post('/login',async(req, res)=>{
             if(result){
                 //encrypt with HMAC SHA256
                 const token = jwt.sign(user._id.toString(), process.env.JWT_SECRET);
-                res.status(200).json({message: "Login successful", token});
+                //set the cookie from the server instead of the client
+                res.cookie("_iduser", token, {
+                    signed: true,
+                    httpOnly: true,
+                });
+                res.status(200).json({message: "Login successful"});
             }
             else{
                 res.status(401).json({message: "Invalid credentials"});
