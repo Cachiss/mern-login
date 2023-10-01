@@ -23,10 +23,18 @@ npm start
 
 Make sure to configure your .env file with your own credentials. For example:
 
+Client: 
+```bash
+VITE_SERVER_URL=http://localhost:3005
+```
+Server: 
 ```bash
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/mern-login-app
 JWT_SECRET=your_secret
+GOOGLE_CLIENT_ID=xxxxxxxxxxxxx
+GOOGLE_CLIENT_SECRET=xxxxxxxxxxx
+CLIENT_URL = http://localhost:5173
 ```
 
 **Que siga la mata dando viejo**
