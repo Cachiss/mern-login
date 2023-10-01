@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { connectDb, User } from "./db/db.js";
 import cookieParser from "cookie-parser";
 import bcrypt from "bcrypt";
-import { isAuthorized } from "./middlewares.js";
+import { isAuthorized, isLogin } from "./middlewares.js";
 import cors from "cors";
 dotenv.config();
 const PORT = process.env.PORT;
@@ -15,8 +15,8 @@ app.use(express.json());
 app.use(cookieParser("this is my secret"));
 app.use(cors({
     origin: process.env.CLIENT_URL,
-    //credentials option is used to allow cookies to be sent from the client
-    credentials: true
+    //credentials option is used to allow cookies to be send from the client
+    credentials: true,
 }));
 connectDb();
 app.get('/',(req, res)=>{
@@ -90,6 +90,9 @@ app.delete('/user', isAuthorized, async (req, res)=>{
     } catch (error) {
         
     }
+})
+app.get('/auth', isLogin, (req, res)=>{
+    res.status(200).json({message: "Authorized"})
 })
 app.listen(PORT||4321, ()=>{
     console.log(`Server running on port ${PORT? PORT : 4321}`)
