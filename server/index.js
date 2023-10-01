@@ -55,6 +55,7 @@ app.post('/login',async(req, res)=>{
                     signed: true,
                     httpOnly: true,
                     secure: true,
+                    domain: process.env.CLIENT_URL,
                 });
                 res.status(200).json({message: "Login successful"});
             }
