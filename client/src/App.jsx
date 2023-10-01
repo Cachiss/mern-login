@@ -5,7 +5,6 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import LoginPage from './pages/login'
 import { AuthProvider } from './context/AuthProvider'
-import UserPage from './pages/user';
 import { ProtectedRoute } from './auth/private-route'
 import { OnlyLoggedOut } from './auth/OnlyLoggedOut'
 import { HomePage } from './pages/home'
