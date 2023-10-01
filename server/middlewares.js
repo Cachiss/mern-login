@@ -7,6 +7,7 @@ dotenv.config();
 export function isAuthorized (req, res, next){
     //signed cookies are the ones that are encrypted
     const token = req.cookies._iduser;
+    console.log(token)
     if(!token) return res.status(401).json({message: "Unauthorized user"});
     
     //verify the token obtained
