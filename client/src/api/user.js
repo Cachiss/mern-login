@@ -42,3 +42,13 @@ export function deleteUser(user){
         body: JSON.stringify(user)
     })
 }
+
+export function getUser(){
+    return fetch(`${server_url}/user`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+}
