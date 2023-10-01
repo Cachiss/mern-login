@@ -30,7 +30,7 @@ const LoginPage = () => {
 
             response = await response.json()
             setError(null)  
-            navigate('/')
+            window.location.reload()
         } catch (error) {
             setError("Invalid email or password")
         }

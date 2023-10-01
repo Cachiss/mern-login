@@ -8,6 +8,7 @@ import { AuthProvider } from './context/AuthProvider'
 import { ProtectedRoute } from './auth/private-route'
 import { OnlyLoggedOut } from './auth/OnlyLoggedOut'
 import { HomePage } from './pages/home'
+import { SignupPage } from './pages/signup'
 function App() {
 
   return (
@@ -18,6 +19,12 @@ function App() {
                 <LoginPage />
               </OnlyLoggedOut>
           } />
+          
+          <Route path="/signup" element={
+            <OnlyLoggedOut>
+              <SignupPage />
+            </OnlyLoggedOut>
+            } />
           <Route path="/" element={
             <ProtectedRoute>
               <HomePage />
