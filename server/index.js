@@ -17,6 +17,8 @@ app.use(cors({
     origin: process.env.CLIENT_URL,
     //credentials option is used to allow cookies to be send from the client
     credentials: true,
+    // for receiving cookies from the client
+    exposedHeaders: ["set-cookie"]
 }));
 connectDb();
 app.get('/',(req, res)=>{
