@@ -31,7 +31,6 @@ const LoginPage = () => {
             response = await response.json()
             setError(null)  
             navigate('/')
-            //cookies.set('_iduser', response.token, { path: '/' });
         } catch (error) {
             setError("Invalid email or password")
         }
@@ -43,11 +42,11 @@ const LoginPage = () => {
         <form className='mt-5' onSubmit={handleSubmit}>
             <div className='flex flex-col items-start'>
                 <label htmlFor='email' className='font-semibold'>Email address</label>
-                <input type="text" name="email" className='w-full border-2 border-pink-600 rounded-md h-14 mt-1 p-2' ref={emailRef}/>
+                <input type="text" name="email" className='w-full border-2 border-pink-600 rounded-md h-14 mt-1 p-2' ref={emailRef} required/>
             </div>
             <div className='flex flex-col items-start mt-3'>
                 <label htmlFor="password" className='font-semibold'>Password</label>
-                <input type="password" name="password" className='w-full border-2 border-pink-600 rounded-md h-14 mt-1 p-2'ref={passwordRef} />
+                <input type="password" name="password" className='w-full border-2 border-pink-600 rounded-md h-14 mt-1 p-2'ref={passwordRef}required />
             </div>
             {/* Show password */}
             <div className='flex items-center mt-3'>
