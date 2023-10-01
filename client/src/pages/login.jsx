@@ -7,6 +7,13 @@ import FacebookIcon from '../assets/facebook.png';
 //services
 import { loginUser } from '../api/user.js';
 
+import Cookies from "universal-cookie";
+const cookies = new Cookies(null, {path: '/'});
+
+const setCookie = (name, value) => {
+    cookies.set(name, value)
+}
+
 const LoginPage = () => {
     const [error, setError] = useState(null)
     const emailRef = useRef();
@@ -29,6 +36,7 @@ const LoginPage = () => {
             if(response.status != 200) return setError("Invalid email or password")
 
             response = await response.json()
+            setCookie('_iduser', response.token)
             setError(null)  
             window.location.reload()
         } catch (error) {

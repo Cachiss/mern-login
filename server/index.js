@@ -50,14 +50,7 @@ app.post('/login',async(req, res)=>{
             if(result){
                 //encrypt with HMAC SHA256
                 const token = jwt.sign(user._id.toString(), process.env.JWT_SECRET);
-                //set the cookie from the server instead of the client
-                res.cookie("_iduser", token, {
-                    signed: true,
-                    httpOnly: true,
-                    secure: true,
-                    sameSite: "none",
-                });
-                res.status(200).json({message: "Login successful"});
+                res.status(200).json({message: "Login successful", token});
             }
             else{
                 res.status(401).json({message: "Invalid credentials"});

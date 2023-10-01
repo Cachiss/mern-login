@@ -19,6 +19,7 @@ export function loginUser(user) {
         headers: {
             'Content-Type': 'application/json'
         },
+        withCredentials: true,
         body: JSON.stringify(user)
     })
 }
