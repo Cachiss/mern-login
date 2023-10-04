@@ -8,6 +8,7 @@ import FacebookIcon from '../assets/facebook.png';
 import { loginUser } from '../api/user.js';
 
 import Cookies from "universal-cookie";
+import { setToken } from '../auth/setToken-localstorage';
 const cookies = new Cookies(null, {path: '/'});
 
 const setCookie = (name, value) => {
@@ -36,8 +37,7 @@ const LoginPage = () => {
             if(response.status != 200) return setError("Invalid email or password")
 
             response = await response.json()
-            setCookie('_iduser', response.token)
-            setError(null)  
+            setToken(response.token)
             window.location.reload()
         } catch (error) {
             setError("Invalid email or password")
@@ -69,7 +69,9 @@ const LoginPage = () => {
                 OR
             </Divider>
             <div className='flex justify-center gap-7'>
-                <img src={GoogleIcon} alt="Google Icon" className='w-10 h-10 mt-5 cursor-pointer'/>
+                <a href={import.meta.env.VITE_SERVER_URL+'/oauth2/google'}>
+                    <img src={GoogleIcon} alt="Google Icon" className='w-10 h-10 mt-5 cursor-pointer'/>
+                </a>
                 <img src={FacebookIcon} alt="Facebook Icon" className='w-10 h-10 mt-5 cursor-pointer'/>
             </div>
         </div>

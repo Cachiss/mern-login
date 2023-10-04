@@ -6,8 +6,7 @@ dotenv.config();
 //the request must be sended with a cookie that contains a jwt with the id encrypted
 export function isAuthorized (req, res, next){
     //signed cookies are the ones that are encrypted
-    const token = req.cookies._iduser;
-    console.log(token)
+    const token = req.headers.authorization;
     if(!token) return res.status(401).json({message: "Unauthorized user"});
     
     //verify the token obtained
@@ -21,7 +20,7 @@ export function isAuthorized (req, res, next){
 }
 
 export function isLogin (req, res, next){
-    const token = req.signedCookies._iduser;
+    const token = req.headers.authorization;
     if(!token) return res.status(401).json({message: "Unauthorized user"});
     
     jwt.verify(token, process.env.JWT_SECRET, async function(err, id){

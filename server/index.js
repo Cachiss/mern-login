@@ -6,6 +6,9 @@ import cookieParser from "cookie-parser";
 import bcrypt from "bcrypt";
 import { isAuthorized, isLogin } from "./middlewares.js";
 import cors from "cors";
+import passport from "passport";
+import { googleStrategy, serializeUser, deserializeUser } from "./services/google_auth.js";
+import session from "express-session";
 dotenv.config();
 const PORT = process.env.PORT;
 const app = express();
@@ -21,6 +24,19 @@ app.use(cors({
     exposedHeaders: ["set-cookie"]
 }));
 connectDb();
+app.use(session({
+    secret: Math.floor(Math.random() * 100000).toString(),
+    cookie: {},
+    resave: false,
+    saveUninitialized: false
+
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(googleStrategy);
+passport.serializeUser(serializeUser);
+passport.deserializeUser(deserializeUser);
+
 app.get('/',(req, res)=>{
     res.send("Welcome to my login server")
 });
@@ -91,6 +107,13 @@ app.delete('/user', isAuthorized, async (req, res)=>{
 app.get('/auth', isLogin, (req, res)=>{
     res.status(200).json({message: "Authorized"})
 })
+
+//google callback 
+app.get('/oauth2/google', passport.authenticate('google', {scope: ['profile', 'email']}));
+app.get('/oauth2/redirect/google', passport.authenticate('google'), (req, res)=>{
+    const token = jwt.sign(req.user._id.toString(), process.env.JWT_SECRET);
+    res.redirect(process.env.CLIENT_URL + `/googleauth/?token=${token}`);
+});
 app.listen(PORT||4321, ()=>{
     console.log(`Server running on port ${PORT? PORT : 4321}`)
 })

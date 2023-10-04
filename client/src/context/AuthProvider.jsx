@@ -17,7 +17,6 @@ export const AuthProvider = ({ children }) => {
                                 .then((res) => {
                                     setUser(res.user)
                                     setLoaded(true);
-                                    console.log("in context",isLogin)
                                 })
                                 .catch((err) => {
                                     setLoaded(true);

@@ -50,6 +50,7 @@ export function getUser(){
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': window.localStorage.getItem('_idtoken')
         },
     })
 }

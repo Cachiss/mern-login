@@ -9,6 +9,7 @@ import { ProtectedRoute } from './auth/private-route'
 import { OnlyLoggedOut } from './auth/OnlyLoggedOut'
 import { HomePage } from './pages/home'
 import { SignupPage } from './pages/signup'
+import { GoogleAuth } from './auth/google-auth'
 function App() {
 
   return (
@@ -25,6 +26,9 @@ function App() {
               <SignupPage />
             </OnlyLoggedOut>
             } />
+            
+          <Route path='/googleauth' element={<GoogleAuth />}>
+          </Route>
           <Route path="/" element={
             <ProtectedRoute>
               <HomePage />
