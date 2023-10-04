@@ -72,7 +72,9 @@ const LoginPage = () => {
                 <a href={import.meta.env.VITE_SERVER_URL+'/oauth2/google'}>
                     <img src={GoogleIcon} alt="Google Icon" className='w-10 h-10 mt-5 cursor-pointer'/>
                 </a>
-                <img src={FacebookIcon} alt="Facebook Icon" className='w-10 h-10 mt-5 cursor-pointer'/>
+                <a href={import.meta.env.VITE_SERVER_URL+'/oauth/facebook'}>
+                    <img src={FacebookIcon} alt="Facebook Icon" className='w-10 h-10 mt-5 cursor-pointer'/>
+                </a>
             </div>
         </div>
         <a href={'/register'} className='text-pink-600 cursor-pointer'>Don't have an user account?</a>

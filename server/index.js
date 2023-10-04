@@ -9,6 +9,7 @@ import cors from "cors";
 import passport from "passport";
 import { googleStrategy, serializeUser, deserializeUser } from "./services/google_auth.js";
 import session from "express-session";
+import { facebookStrategy } from "./services/facebook_auth.js";
 dotenv.config();
 const PORT = process.env.PORT;
 const app = express();
@@ -34,6 +35,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(googleStrategy);
+passport.use(facebookStrategy);
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
 
@@ -113,6 +115,13 @@ app.get('/oauth2/google', passport.authenticate('google', {scope: ['profile', 'e
 app.get('/oauth2/redirect/google', passport.authenticate('google'), (req, res)=>{
     const token = jwt.sign(req.user._id.toString(), process.env.JWT_SECRET);
     res.redirect(process.env.CLIENT_URL + `/googleauth/?token=${token}`);
+});
+
+//facebook auth
+app.get('/oauth/facebook', passport.authenticate('facebook', {scope: ['email', 'user_location']}));
+app.get('/oauth/facebook/redirect', passport.authenticate('facebook'), (req, res)=>{
+    const token = jwt.sign(req.user._id.toString(), process.env.JWT_SECRET);
+    res.redirect(process.env.CLIENT_URL + `/facebookauth/?token=${token}`);
 });
 app.listen(PORT||4321, ()=>{
     console.log(`Server running on port ${PORT? PORT : 4321}`)

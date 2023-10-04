@@ -10,6 +10,7 @@ import { OnlyLoggedOut } from './auth/OnlyLoggedOut'
 import { HomePage } from './pages/home'
 import { SignupPage } from './pages/signup'
 import { GoogleAuth } from './auth/google-auth'
+import { FacebookAuth } from './auth/facebook-auth'
 function App() {
 
   return (
@@ -28,6 +29,8 @@ function App() {
             } />
             
           <Route path='/googleauth' element={<GoogleAuth />}>
+          </Route>
+          <Route path='/facebookauth' element={<FacebookAuth />}>
           </Route>
           <Route path="/" element={
             <ProtectedRoute>
