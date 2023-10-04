@@ -44,12 +44,13 @@ export function deleteUser(user){
     })
 }
 
-export function getUser(){
+export function getUser(token){
     return fetch(`${server_url}/user`, {
         method: 'GET',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': token
         },
     })
 }
